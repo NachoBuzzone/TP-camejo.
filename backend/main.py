@@ -35,6 +35,45 @@ def get_autos():
         print('Error', error)
         return jsonify({'message': 'Internal server error'}), 500
 
+@app.route ('/autos/<id_autos>', methods = ["GET"])
+def info_autos(id_autos):
+    try:
+        auto = Autos.query.get(id_autos)
+        auto_data = {
+            'id': auto.id,
+            'kilometraje': auto.kilometraje,
+            'anio': auto.anio,
+            'modelo': auto.modelo,
+            'marca': auto.marca,
+            'color': auto.color,
+            'imagen': auto.imagen
+        }
+        return jsonify (auto_data)
+    except:
+        return jsonify ({"mensaje: El auto no existe."})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @app.route('/vendedores', methods=['GET'])
 def get_vendedores():
