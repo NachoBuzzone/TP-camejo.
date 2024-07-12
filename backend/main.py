@@ -53,7 +53,21 @@ def info_autos(id_autos):
         return jsonify ({"mensaje: El auto no existe."})
 
 
-
+@app.route ('/sucursales/<id_sucursales>', methods = ["GET"])
+def info_sucursales(id_sucursales):
+    try:
+        sucursal = Sucursales.query.get(id_sucursales)
+        sucursal_data = {
+            'id': sucursal.id,
+            'localidad': sucursal.localidad,
+            'direccion': sucursal.direccion,
+            'horario_de_atencion': sucursal.horario_de_atencion,
+            'en_actividad': sucursal.en_actividad,
+            'link_direccion': sucursal.link_direccion 
+        }
+        return jsonify (sucursal_data)
+    except:
+        return jsonify ({"mensaje: La sucursal no existe."})
 
 
 
