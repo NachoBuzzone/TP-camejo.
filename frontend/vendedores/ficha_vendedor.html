@@ -31,6 +31,9 @@
                                 <h2 id="direccion"></h2>
                                 <h2 id="mail"></h2>
                                 </ul>
+                                <div class="card-footer">
+                                <button class="btn btn-danger" onclick="borrar_vendedor()">BORRAR</button>
+                                </div>  
                             </div>
                         </div>
                     </div>
@@ -74,6 +77,24 @@
             .then(response_received)
             .then(parse_data)
             .catch(handle_error)
+        
+        function borrar_vendedor() {
+            const confirmar = confirm(`Seguro quieres eliminar al vendedor ${id}?`)
+            if (!confirmar) {
+                alert("Un error ha ocurrido. Intente nuevamente.");
+            }
+            else {
+                alert("El vendedor fue eliminado correctamente.")
+                window.location.href = "principal_vendedores.html";
+            }
+        }
+
+            fetch(
+                `http://localhost:5000/vendedores/${id}`,
+                { method: "DELETE" }
+            )
+                .then((res) => res.json())
+                .catch(handle_error)
     </script>
 </body>
 

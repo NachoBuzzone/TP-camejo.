@@ -28,9 +28,12 @@
                             <div class="col-6">
                                 <h2 id="autos", id ="model"></h2>
                                 <h2 id="color"></h2>
-                                <h2 id = "anio">aaaaaaa</h2>       
+                                <h2 id = "anio"></h2>       
                                 <h2 id = "model"></h2>
                                 </ul>
+                                <div class="card-footer">
+                                    <button class="btn btn-danger" onclick="borrar_auto()">BORRAR</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -72,6 +75,24 @@
             .then(response_received)
             .then(parse_data)
             .catch(handle_error)
+        
+        function borrar_auto() {
+            const confirmar = confirm(`Seguro quieres eliminar el auto ${id}?`)
+            if (!confirmar) {
+                alert("Un error ha ocurrido. Intente nuevamente.");
+            }
+            else {
+                alert("El auto fue eliminado correctamente.")
+                window.location.href = "principal_autos.html";
+            }
+
+            fetch(
+                `http://localhost:5000/autos/${id}`,
+                { method: "DELETE" }
+            )
+                .then((res) => res.json())
+                .catch(handle_error)
+        }
     </script>
 </body>
 
