@@ -83,6 +83,14 @@ def anadir_auto():
         return jsonify({'message': 'Internal server error'}), 500
 
 
+@app.route ('/autos/<id_autos>', methods = ["DELETE"])
+def eliminar_auto (id_autos):
+    auto = Autos.query.get (id_autos)
+    db.session.delete (auto)
+    db.session.commit ()
+    return 
+
+
 @app.route('/sucursales', methods=['POST'])
 def anadir_sucursal():
     try:
@@ -145,6 +153,7 @@ def info_sucursales(id_sucursales):
         return jsonify (sucursal_data)
     except:
         return jsonify ({"mensaje: La sucursal no existe."})
+
         
 @app.route('/vendedores', methods=['GET'])
 def get_vendedores():
@@ -212,6 +221,13 @@ def anadir_vendedor():
     except Exception as error:
         print('Error', error)
         return jsonify({'message': 'Internal server error'}), 500
+
+@app.route ('/vendedores/<id_vendedores>', methods = ["DELETE"])
+def eliminar_sucursal (id_vendedores):
+    vendedor = Vendedores.query.get (id_vendedores)
+    db.session.delete (vendedor)
+    db.session.commit ()
+    return 
 
 if __name__ == '__main__':
     with app.app_context():
