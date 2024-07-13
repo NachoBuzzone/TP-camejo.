@@ -20,7 +20,6 @@ class Sucursales(db.Model):
     localidad = db.Column(db.String(250),nullable = False)
     direccion = db.Column(db.String(250), nullable = False)
     horario_de_atencion = db.Column(db.String(255), nullable = False)
-    en_actividad = db.Column(db.Boolean, nullable = False)
     link_direccion = db.Column(db.String(255), nullable = False)
 
 class Vendedores (db.Model):
