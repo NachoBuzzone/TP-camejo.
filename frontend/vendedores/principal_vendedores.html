@@ -11,12 +11,14 @@
 
 <body data-bs-theme="dark">
     <h1>Concesionaria FNS</h1>
+    <a href="crear_vendedor.html" class="btn btn-success">New character</a>
+
     <div class="container">
         <div class="row">
             <div class="col">
-    <div id = "sucursales"></div>
+    <div id = "vendedores"></div>
     <div class="container">
-        <div class="row g-4" id="sucursal">
+        <div class="row g-4" id="vendedor">
         </div>
     </div>
 
@@ -30,23 +32,23 @@
             return data.json()
         }
         function parse_data(content) {
-            const container = document.getElementById("sucursal");
-            for (let index = 0; index < content.sucursales.length; index++) {
+            const container = document.getElementById("vendedor");
+            for (let index = 0; index < content.vendedores.length; index++) {
                 const item = document.createElement("p");
                 item.setAttribute("class", "col-3 col-md-6 col-lg-2 col-xl-3");
 
                 const card = document.createElement("a");
                 card.setAttribute("class", "card text-decoration-none");
-                card.setAttribute("href", `ficha_sucursal.html?id=${content.sucursales[index].id}`);
+                card.setAttribute("href", `ficha_vendedor.html?id=${content.vendedores[index].id}`);
 
                 const image = document.createElement("img");
                 image.setAttribute("class", "card-img-top");
-                image.setAttribute("src", content.sucursales[index].link_direccion)
+                image.setAttribute("src", content.vendedores[index].link_imagen)
 
                 const card_body = document.createElement("div");
                 card_body.setAttribute("class", "card-body");
 
-                card_body.append(content.sucursales[index].direccion + " " + " ( " +content.sucursales[index].localidad + " ) ");
+                card_body.append(content.vendedores[index].nombre + " " + " " + content.vendedores[index].apellido);
                 card.append(image);
                 card.append(card_body);
                 item.append(card);
@@ -60,7 +62,7 @@
             console.log(error);
         }
 
-        fetch("http://localhost:5000/sucursales")
+        fetch("http://localhost:5000/vendedores")
             .then(response_received)
             .then(parse_data)
             .catch(request_error)
