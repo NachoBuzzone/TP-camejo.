@@ -307,7 +307,7 @@ def editar_vendedor(id_vendedores):
 
 @app.route ('/vendedores/<id_vendedores>', methods = ["DELETE"])
 def eliminar_vendedor (id_vendedores):
-    vendedor = Vendedoress.query.get (id_vendedores)
+    vendedor = Vendedores.query.get (id_vendedores)
     db.session.delete (vendedor)
     db.session.commit ()
     return jsonify ({'message' : 'Vendedor borrado exitosamente.'}), 200
