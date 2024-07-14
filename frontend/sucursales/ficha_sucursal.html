@@ -28,7 +28,8 @@
                             <div class="col-6">
                                 <h2 id="direccion", id = "localidad"></h2>       
                                 </ul>
-                            </div>
+                            <div>
+                            <a id="editar" class="btn btn-warning" href="editar_sucursal.html">Editar</a>
                         </div>
                     </div>
                 </div>
@@ -46,6 +47,9 @@
         if (id === null) {
             window.location.href = "principal_sucursales.html";
         }
+
+        document.getElementById("editar").setAttribute("href", `editar_sucursal.html?id=${id}`)
+
         function response_received(response) {
             return response.json()
         }

@@ -32,7 +32,8 @@
                                 <h2 id = "model"></h2>
                                 </ul>
                                 <div class="card-footer">
-                                    <button class="btn btn-danger" onclick="borrar_auto()">BORRAR</button>
+                                    <button class="btn btn-danger" onclick="borrar_auto()">Borrar</button>
+                                    <a id="editar" class="btn btn-warning" href="editar_auto.html">Editar</a>
                                 </div>
                             </div>
                         </div>
@@ -52,6 +53,10 @@
         if (id === null) {
             window.location.href = "principal_autos.html";
         }
+
+        document.getElementById("editar").setAttribute("href", `editar_auto.html?id=${id}`)
+       
+        
         function response_received(response) {
             return response.json()
         }

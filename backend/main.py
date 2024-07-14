@@ -88,7 +88,37 @@ def eliminar_auto (id_autos):
     auto = Autos.query.get (id_autos)
     db.session.delete (auto)
     db.session.commit ()
-    return 
+    return jsonify ({'message' : 'Auto borrado exitosamente.'}), 200
+
+@app.route ('/autos/<id_autos>', methods = ["PUT"])
+def editar_auto(id_autos):
+    try:
+        data = request.json
+        auto_editado = Autos.query.filter_by(id=id_autos).one()
+        auto_editado.kilometraje = data.get('kilometraje')
+        auto_editado.anio = data.get('anio')
+        auto_editado.modelo = data.get('modelo')
+        auto_editado.marca = data.get('marca')
+        auto_editado.color = data.get('color')
+        auto_editado.imagen = data.get('imagen')
+            
+        db.session.commit()
+            
+        actualizar_auto = {
+            'id': auto_editado.id,
+            'kilometraje': auto_editado.kilometraje,
+            'anio': auto_editado.anio,
+            'modelo': auto_editado.modelo,
+            'marca': auto_editado.marca,
+            'color': auto_editado.color,
+            'imagen': auto_editado.imagen
+        }
+            
+        return jsonify({'Autos': actualizar_auto}), 200
+
+    except Exception as error:
+        print('Error', error)
+        return jsonify({'message': 'Internal server error'}), 500
 
 
 @app.route('/sucursales', methods=['POST'])
@@ -153,6 +183,33 @@ def info_sucursales(id_sucursales):
         return jsonify (sucursal_data)
     except:
         return jsonify ({"mensaje: La sucursal no existe."})
+
+
+@app.route ('/sucursales/<id_sucursales>', methods = ["PUT"])
+def editar_sucursal(id_sucursales):
+    try:
+        data = request.json
+        sucursal_editada = Sucursales.query.filter_by(id=id_sucursales).one()
+        sucursal_editada.localidad = data.get('localidad')
+        sucursal_editada.direccion = data.get('direccion')
+        sucursal_editada.horario_de_atencion = data.get('horario_de_atencion')
+        sucursal_editada.link_direccion = data.get('link_direccion')
+            
+        db.session.commit()
+            
+        actualizar_sucursal = {
+            'id': sucursal_editada.id,
+            'localidad': sucursal_editada.localidad,
+            'direccion': sucursal_editada.direccion,
+            'horario_de_atencion': sucursal_editada.horario_de_atencion,
+            'link_direccion': sucursal_editada.link_direccion
+        }
+            
+        return jsonify({'Sucursales': actualizar_sucursal}), 200
+
+    except Exception as error:
+        print('Error', error)
+        return jsonify({'message': 'Internal server error'}), 500
 
         
 @app.route('/vendedores', methods=['GET'])
@@ -222,13 +279,43 @@ def anadir_vendedor():
         print('Error', error)
         return jsonify({'message': 'Internal server error'}), 500
 
+@app.route ('/vendedores/<id_vendedores>', methods = ["PUT"])
+def editar_vendedor(id_vendedores):
+    try:
+        data = request.json
+        vendedor_editado = Vendedores.query.filter_by(id=id_vendedores).one()
+        vendedor_editado.nombre = data.get('nombre')
+        vendedor_editado.apellido = data.get('apellido')
+        vendedor_editado.edad = data.get('edad')
+        vendedor_editado.id_sucursal = data.get('id_sucursal')
+        vendedor_editado.mail = data.get('mail')
+        vendedor_editado.link_imagen = data.get('link_imagen')
+            
+        db.session.commit()
+            
+        actualizar_vendedor = {
+            'id': vendedor_editado.id,
+            'nombre': vendedor_editado.nombre,
+            'apellido': vendedor_editado.apellido,
+            'edad': vendedor_editado.edad,
+            'id_sucursal': vendedor_editado.id_sucursal,
+            'mail': vendedor_editado.mail,
+            'link_imagen': vendedor_editado.link_imagen
+        }
+            
+        return jsonify({'Vendedores': actualizar_vendedor}), 200
+    except Exception as error:
+        print('Error', error)
+        return jsonify({'message': 'Internal server error'}), 500
+
+
 @app.route ('/vendedores/<id_vendedores>', methods = ["DELETE"])
-def eliminar_sucursal (id_vendedores):
-    vendedor = Vendedores.query.get (id_vendedores)
+def eliminar_vendedor (id_vendedores):
+    vendedor = Vendedoress.query.get (id_vendedores)
     db.session.delete (vendedor)
     db.session.commit ()
-    return 
-
+    return jsonify ({'message' : 'Vendedor borrado exitosamente.'}), 200
+ 
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
