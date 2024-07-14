@@ -33,6 +33,7 @@
                                 </ul>
                                 <div class="card-footer">
                                 <button class="btn btn-danger" onclick="borrar_vendedor()">BORRAR</button>
+                                <a id="editar" class="btn btn-warning" href="editar_vendedor.html">Editar</a>
                                 </div>  
                             </div>
                         </div>
@@ -52,6 +53,9 @@
         if (id === null) {
             window.location.href = "principal_vendedores.html";
         }
+
+        document.getElementById("editar").setAttribute("href", `editar_vendedor.html?id=${id}`)
+        
         function response_received(response) {
             return response.json()
         }
@@ -77,9 +81,9 @@
             .then(response_received)
             .then(parse_data)
             .catch(handle_error)
-        
+
         function borrar_vendedor() {
-            const confirmar = confirm(`Seguro quieres eliminar al vendedor ${id}?`)
+            const confirmar = confirm(`Seguro quieres eliminar el vendedor ${id}?`)
             if (!confirmar) {
                 alert("Un error ha ocurrido. Intente nuevamente.");
             }
@@ -87,14 +91,13 @@
                 alert("El vendedor fue eliminado correctamente.")
                 window.location.href = "principal_vendedores.html";
             }
-        }
-
             fetch(
                 `http://localhost:5000/vendedores/${id}`,
                 { method: "DELETE" }
             )
-                .then((res) => res.json())
-                .catch(handle_error)
+            .then((res) => res.json())
+            .catch(handle_error)
+        }
     </script>
 </body>
 

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        img {
+            background-color: dimgray;
+            aspect-ratio: 3/4;
+        }
+    </style>
+</head>
+
+<body data-bs-theme="dark">
+    <div class="container my-4">
+        <div class="row">
+            <div class="col-12 col-md-10 col-lg-6 mx-auto">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title">Editar</h2>
+                        <form onsubmit="editar_vendedor(event)">
+
+                            <div class="mb-3">
+                                <label for="nombre" class="form-label">Nombre:</label>
+                                <input type="text" class="form-control" id="nombre" name="nombre" placeholder = "Santiago"
+                                    required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="apellido" class="form-label">Apellido:</label>
+                                <input type="text" class="form-control" id="apellido" name="apellido" placeholder=
+                                    required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="edad" class="form-label">Edad:</label>
+                                <input type="number" class="form-control" name="edad" id="edad" placeholder="20" 
+                                    required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="id_sucursal" class="form-label">Sucursal:</label>
+                                <input type="text" class="form-control" name="id_sucursal" id="id_sucursal" placeholder="20" 
+                                    required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="mail" class="form-label">Mail:</label>
+                                <input type="text" class="form-control" id="mail" name="mail" placeholder="nombre@gmail.com"
+                                    required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="link_imagen" class="form-label">Imagen:</label>
+                                <input type="text" class="form-control" name="link_imagen" id="link_imagen" required>
+                            </div>
+                            <button type="submit" class="btn btn-success">Agregar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+        <script>
+            const params = new URLSearchParams(window.location.search);
+            const id = params.get("id");
+    
+            if (id === null) {
+                window.location.href = "principal_vendedores.html";
+            }
+    
+            function handle_get_response(data) {
+                document.getElementById("nombre").value = data.nombre
+                document.getElementById("apellido").value = data.apellido
+                document.getElementById("edad").value = data.edad
+                document.getElementById("mail").value = data.mail
+                document.getElementById("id_sucursal").value = data.id_sucursal
+                document.getElementById("link_imagen").value = data.link_imagen
+            }
+            
+            fetch(`http://localhost:5000/vendedores/${id}`)
+                .then((response) => response.json())
+                .then(handle_get_response)
+                .catch((error) => console.log("ERROR", error))
+    
+            function handle_response(data) {
+                if (data.Vendedores) {
+                    window.location.href =  "principal_vendedores.html"
+                } else {
+                    alert("Error")
+                }
+            }
+    
+            function editar_vendedor(event) {
+                event.preventDefault()
+    
+                const formData = new FormData(event.target)
+    
+                const nombre = formData.get("nombre")
+                const apellido = formData.get("apellido")
+                const edad = formData.get("edad")
+                const id_sucursal = formData.get("id_sucursal")
+                const mail = formData.get("mail")
+                const link_imagen = formData.get("link_imagen")
+    
+                fetch(`http://localhost:5000/vendedores/${id}`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        nombre:nombre,
+                        apellido:apellido,
+                        edad: edad,
+                        id_sucursal:id_sucursal,
+                        mail:mail,
+                        link_imagen: link_imagen,
+                    })
+                })
+                    .then((res) => res.json())
+                    .then(handle_response)
+                    .catch((error) => console.log("ERROR", error))
+            }
+        </script>
+</body>
