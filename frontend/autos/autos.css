@@ -1,0 +1,43 @@
+h1 {
+    text-align: center;
+    background-color: rgb(48, 47, 47);
+    font-family: 'Times New Roman', Times, serif;
+}
+
+nav #elemento {
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    list-style: none;
+    background-color: rgb(71, 61, 61);
+    justify-content: space-between;
+    display: inline-block;
+    width:32%;
+    border:2em;
+    text-decoration: none;
+    border-radius:1em;
+    font-size: x-large;
+}
+
+a {
+    color: white;
+}
+
+#boton {
+    background-color: mediumseagreen;
+    cursor: pointer;
+    transition: all ease 0.5s;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.btn:hover {
+    background-color: transparent;
+    color: mediumseagreen;
+}
+
+#datos {
+    font-family: 'Times New Roman', Times, serif; 
+}
+
+#container {
+    font-family: 'Times New Roman', Times, serif;
+}

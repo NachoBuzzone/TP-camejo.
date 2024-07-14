@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, redirect, url_for, render_template
 from models import db,Autos,Sucursales,Vendedores
 from flask_cors import CORS
 
@@ -9,10 +9,6 @@ app.config['SQLALCHEMY_DATABASE_URI']= 'postgresql+psycopg2://santy23:Riverplate
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 
 db.init_app(app)
-
-@app.route('/')
-def hello_world():
-    return 'Hello world!'
 
 @app.route('/autos', methods=['GET'])
 def get_autos():
