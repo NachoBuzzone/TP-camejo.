@@ -84,21 +84,29 @@
             .then(response_received)
             .then(parse_data)
             .catch(handle_error)
+        
+        function delete_response(data) {
+            if (data.message) {
+                alert("El vendedor ha sido borrado exitosamente.")
+                window.location.href = "principal_vendedores.html";
+            } else {
+                alert("Surgio un error. Intente nuevamente.")
+            }
+        }
 
         function borrar_vendedor() {
             const confirmar = confirm(`Seguro quieres eliminar el vendedor ${id}?`)
             if (!confirmar) {
-                alert("Un error ha ocurrido. Intente nuevamente.");
+                return;
             }
-            else {
-                alert("El vendedor fue eliminado correctamente.")
-                window.location.href = "principal_vendedores.html";
-            }
+
+
             fetch(
                 `http://localhost:5000/vendedores/${id}`,
                 { method: "DELETE" }
             )
             .then((res) => res.json())
+            .then(delete_response)
             .catch(handle_error)
         }
     </script>

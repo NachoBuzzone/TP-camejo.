@@ -29,15 +29,47 @@ a {
     font-family: 'Times New Roman', Times, serif;
 }
 
-.btn:hover {
-    background-color: transparent;
-    color: mediumseagreen;
-}
-
 #datos {
     font-family: 'Times New Roman', Times, serif; 
 }
 
 #container {
     font-family: 'Times New Roman', Times, serif;
+}
+
+#editar{
+    background-color: mediumaquamarine;
+    transition: all ease 0.5s;
+    border:mediumaquamarine solid 1px;
+
+}
+
+#volver {
+    background-color: gray;
+    transition: all ease 0.5s;
+    border:gray solid 1px;
+}
+
+#borrar {
+    background-color: rgb(128, 4, 4);
+    transition: all ease 0.5s;
+    border:rgb(128, 4, 4) solid 1px;
+}
+
+#borrar:hover {
+    background-color: transparent;
+}
+
+#volver:hover {
+    background-color: transparent;
+}
+
+#editar:hover{
+    background-color: transparent;
+}
+
+.botones {
+    margin-top: 170px;
+    margin-left: 170px;
+    display: inline-block;
 }

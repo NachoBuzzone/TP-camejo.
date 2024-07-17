@@ -31,3 +31,18 @@ class Vendedores (db.Model):
     id_sucursal = db.Column (db.Integer,db.ForeignKey('sucursales.id'))
     mail = db.Column (db.String (255),nullable = False)
     link_imagen = db.Column (db.String (255), nullable = False)
+
+class Login (db.Model):
+    _tablename = 'login'
+    id = db.Column (db.Integer, primary_key= True)
+    mail = db.Column (db.String (100), nullable = False)
+    contrasena = db.Column (db.String (100),nullable = False)
+    nombre = db.Column (db.String (100), nullable = False)
+    apellido = db.Column (db.String (100), nullable = False)
+
+class Consultas (db.Model):
+    _tablename = 'consultas'
+    id = db.Column (db.Integer, primary_key = True)
+    mail = db.Column (db.String (100), nullable = False)
+    tipo_consulta = db.Column (db.String (100),nullable = False)
+    mensaje = db.Column (db.String (5000),nullable = False)

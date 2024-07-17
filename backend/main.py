@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify, redirect, url_for, render_template
-from models import db,Autos,Sucursales,Vendedores
+from models import db,Autos,Sucursales,Vendedores,Consultas,Login
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -84,7 +84,7 @@ def eliminar_auto (id_autos):
     auto = Autos.query.get (id_autos)
     db.session.delete (auto)
     db.session.commit ()
-    return jsonify ({'message' : 'Auto borrado exitosamente.'}), 200
+    return ({'message' : 'Auto borrado exitosamente.'}), 200
 
 @app.route ('/autos/<id_autos>', methods = ["PUT"])
 def editar_auto(id_autos):
@@ -310,7 +310,31 @@ def eliminar_vendedor (id_vendedores):
     vendedor = Vendedores.query.get (id_vendedores)
     db.session.delete (vendedor)
     db.session.commit ()
-    return jsonify ({'message' : 'Vendedor borrado exitosamente.'}), 200
+    return ({"message": "Vendedor borrado exitosamente"}),200
+
+
+@app.route('/consultas', methods=['POST'])
+def anadir_consulta():
+    try:
+        data = request.json
+        id = data.get ('id')
+        mail = data.get ('mail')
+        tipo_consulta = data.get ('tipo_consulta')
+        mensaje = data.get ('mensaje')
+        consulta_nueva = Consultas(id = id, mail=mail,tipo_consulta=tipo_consulta,mensaje=mensaje)
+        db.session.add(consulta_nueva)
+        db.session.commit()
+        return jsonify({
+            'Consultas': {
+                'id': consulta_nueva.id,
+                'mail': consulta_nueva.mail,
+                'tipo_consulta': consulta_nueva.tipo_consulta,
+                'mensaje':consulta_nueva.mensaje
+            }
+        }), 201
+    except Exception as error:
+        print('Error', error)
+        return jsonify({'message': 'Internal server error'}), 500
  
 if __name__ == '__main__':
     with app.app_context():

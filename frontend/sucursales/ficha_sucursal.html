@@ -27,6 +27,8 @@
                                 <img src="" alt="" id="image" class="w-100">
                             </div>
                             <div class="col-6" id="datos">
+                                <h3 id="id"></h3>
+                                <br>
                                 <h3 id="direccion", id = "localidad"></h3>
                                 <br>
                                 <h3 id="horario_de_atencion"></h3>
@@ -34,6 +36,7 @@
                                 </ul>
                             <div>
                             <a id="editar" class="btn btn-warning" href="editar_sucursal.html">Editar</a>
+                            <a id ="volver" class="btn" href="principal_sucursales.html">Volver</a>
                         </div>
                     </div>
                 </div>
@@ -59,10 +62,12 @@
         }
 
         function parse_data(sucursal) {
+            const id = document.getElementById ("id");
+            id.innerText = `Numero de sucursal: ${sucursal.id}`
             const direccion = document.getElementById("direccion");
-            direccion.innerText = "Direccion: " +  " " +sucursal.direccion + " " + "( " + sucursal.localidad + " ) ";
+            direccion.innerText = `Direccion: ${sucursal.direccion} (${sucursal.localidad})`
             const horario_de_atencion = document.getElementById ("horario_de_atencion");
-            horario_de_atencion.innerText = "Horario de atencion: " + " " + sucursal.horario_de_atencion;
+            horario_de_atencion.innerText = `Horario de atencion: ${sucursal.horario_de_atencion}`
             const imagen = document.getElementById("image");
             imagen.setAttribute("src", sucursal.link_direccion);
         }
