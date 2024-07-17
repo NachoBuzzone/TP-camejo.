@@ -336,6 +336,32 @@ def anadir_consulta():
         print('Error', error)
         return jsonify({'message': 'Internal server error'}), 500
  
+
+@app.route('/login', methods=['POST'])
+def iniciar_sesion():
+    try:
+        data = request.json
+        id = data.get ('id')
+        nombre = data.get ('nombre')
+        apellido = data.get ('apellido')
+        mail = data.get('mail')
+        contrasena = data.get('contrasena')
+        usuario = Login(id = id, nombre=nombre, apellido=apellido, mail=mail, contrasenia=contrasena)
+        db.session.add(usuario)
+        db.session.commit()
+        return jsonify({
+            'Login': {
+                'id': usuario.id,
+                'nombre': usuario.nombre,
+                'apellido': usuario.apellido,
+                'mail': usuario.mail,
+                'contrasena': usuario.contrasena
+            }
+        }), 201
+    except Exception as error:
+        print('Error', error)
+        return jsonify({'message': 'Internal server error'}), 500
+
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
