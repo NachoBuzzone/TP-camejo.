@@ -26,26 +26,23 @@
                     <div class="card">
                         <div class="card-body">
                             <h2 class="card-title">Realizar consulta</h2>
-                            <form onsubmit="imprimir_mensaje()" id="formulario">
+                            <form onsubmit="anadir_mensaje(event)" id="formulario">
                                 <div class="mb-3">
                                     <label for="mail" class="form-label">Mail:</label>
                                     <input type="email" class="form-control" id="mail" name="mail"
                                         required>
-                                <br>
+                                <div class="mb-3">
+                                <input class = "form-check-input" type = "radio" name = "tipo_consulta" id = "tipo_consulta" value="autos" required>
+                                <label class = "form-check-label" for = "tipo_consulta">Precio Autos</label>
+                                <input class = "form-check-input" type = "radio" name = "tipo_consulta" id = "tipo_consulta" value="trabajo" required>
+                                <label class = "form-check-label" for = "tipo_consulta">Conseguir trabajo</label>
+                                <input class = "form-check-input" type = "radio" name = "tipo_consulta" id = "tipo_consulta" value= "opinion" required>
+                                <label class = "form-check-label" for = "tipo_consulta">Opinion</label>
                                 </div>
-                                <input class = "form-check-input" type = "radio" name = "motivo" id = "motivo" required>
-                                <label class = "form-check-label" for = "motivo">Precio Autos</label>
-                                <input class = "form-check-input" type = "radio" name = "motivo" id = "motivo" required>
-                                <label class = "form-check-label" for = "motivo">Conseguir trabajo</label>
-                                <input class = "form-check-input" type = "radio" name = "motivo" id = "motivo" required>
-                                <label class = "form-check-label" for = "motivo">Opinion</label>
-                                <br>
-                                <br>
                                 <div class="mb-3">
                                     <label for="mensaje" class="form-label">Mensaje</label>
                                     <input type="textarea" class="form-control" name="mensaje" id="mensaje" required>
                                 </div>
-    
                                 <button type="submit" class="btn btn-success" href = "/frontend/autos/principal_autos.html">Enviar mensaje</button>
                             </form>
                         </div>
@@ -60,7 +57,48 @@
 integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
 crossorigin="anonymous"></script>
 <script>
-function imprimir_mensaje (){
-    alert ("Muchas gracias por el mensaje. Recibira una respuesta en su mail muy pronto")
-}    
-</script>
+function handle_response(data) {
+            if (data.Consultas) {
+                window.location.href = "/frontend/autos/principal_autos.html";
+            } else {
+                alert("Error");
+            }
+        }
+
+        function anadir_mensaje(event) {
+            event.preventDefault()
+
+            const formData = new FormData(event.target)
+            const mail = formData.get("mail")
+            const tipo_consulta = formData.get("tipo_consulta")
+            const mensaje = formData.get("mensaje")
+
+            if (tipo_consulta === 'opinion'){
+                alert ("Muchas gracias, su opinion es muy importante para nosotros.")
+            }
+            else if (tipo_consulta === 'trabajo'){
+                alert (`Muchas gracias por enviar su solicitud, recibira una respuesta al siguiente mail: ${mail}.`)
+            }
+            else if (tipo_consulta === 'autos'){
+                alert (`Muchas gracias por su consulta, recibira la informacion en el siguiente mail: ${mail}.`)
+            }
+
+            fetch("http://localhost:5000/consultas", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    mail:mail,
+                    tipo_consulta:tipo_consulta,
+                    mensaje:mensaje,
+                })
+            })
+                .then((res) => res.json())
+                .then(handle_response)
+                .catch((error) => console.log("ERROR", error))
+        }
+    </script>
+</body>
+
+</html>   

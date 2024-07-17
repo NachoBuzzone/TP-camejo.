@@ -28,15 +28,15 @@
                             </div>
                             <div class="col-6" id = "datos">
                                 <h3 id="autos", id ="model"></h3>
-                                <br>
                                 <h3 id = "anio"></h3>
-                                <br>
-                                <h3 id="kilometraje"></h3>
-                                <br>       
+                                <h3 id="kilometraje"></h3>      
                                 <h3 id = "model"></h3>
                                 </ul>
-                                <button class="btn btn-danger" onclick="borrar_auto()">Borrar</button>
-                                <a id="editar" class="btn btn-warning" href="editar_auto.html">Editar</a>
+                                <div class = "botones">
+                                <a id ="borrar" class="btn" onclick="borrar_auto()">Borrar</a>
+                                <a id="editar" class="btn" href="editar_auto.html">Editar</a>
+                                <a id="volver" class="btn" href="principal_autos.html">Volver</a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -65,11 +65,11 @@
 
         function parse_data(auto) {
             const name = document.getElementById("autos");
-            name.innerText = "Modelo:" + " " + auto.marca + " " + auto.modelo;
+            name.innerText = `Modelo: ${auto.marca} ${auto.modelo}`
             const kilometraje = document.getElementById("kilometraje");
-            kilometraje.innerText ="Kilometros:" + " " + auto.kilometraje;
+            kilometraje.innerText =`Kilometros: ${auto.kilometraje}`;
             const anio = document.getElementById ("anio");
-            anio.innerText ="Año:" + " " + auto.anio;
+            anio.innerText =`Año: ${auto.anio}`;
             const imagen = document.getElementById("image");
             imagen.setAttribute("src", auto.imagen);
         }
@@ -82,22 +82,27 @@
             .then(response_received)
             .then(parse_data)
             .catch(handle_error)
+
+        function delete_response(data) {
+            if (data.message) {
+                alert("El auto ha sido borrado exitosamente.")
+                window.location.href = "principal_autos.html";
+            } else {
+                alert("Surgio un error. Intente nuevamente.")
+            }
+        }
         
         function borrar_auto() {
             const confirmar = confirm(`Seguro quieres eliminar el auto ${id}?`)
             if (!confirmar) {
-                alert("Un error ha ocurrido. Intente nuevamente.");
+                return;
             }
-            else {
-                alert("El auto fue eliminado correctamente.")
-                window.location.href = "principal_autos.html";
-            }
-
             fetch(
                 `http://localhost:5000/autos/${id}`,
                 { method: "DELETE" }
             )
                 .then((res) => res.json())
+                .then(delete_response)
                 .catch(handle_error)
         }
     </script>

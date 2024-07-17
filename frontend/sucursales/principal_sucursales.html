@@ -57,7 +57,7 @@
                 const card_body = document.createElement("div");
                 card_body.setAttribute("class", "card-body");
 
-                card_body.append(content.sucursales[index].direccion + " " + " ( " +content.sucursales[index].localidad + " ) ");
+                card_body.append(`${content.sucursales[index].direccion} (${content.sucursales[index].localidad}). `);
                 card.append(image);
                 card.append(card_body);
                 item.append(card);
