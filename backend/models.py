@@ -13,6 +13,8 @@ class Autos (db.Model):
     marca = db.Column (db.String (255), nullable = False)
     color = db.Column(db.String(50), nullable = False)
     imagen = db.Column(db.String(255), nullable = False)
+    motor = db.Column (db.String (500), nullable = False)
+
 
 class Sucursales(db.Model):
     _tablename = 'sucursales'

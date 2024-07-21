@@ -34,9 +34,10 @@
                                 <h3 id="horario_de_atencion"></h3>
                                 <br>
                                 </ul>
-                            <div>
-                            <a id="editar" class="btn btn-warning" href="editar_sucursal.html">Editar</a>
+                            <div class="botones">
+                            <a id="editar" class="btn" href="editar_sucursal.html">Editar</a>
                             <a id ="volver" class="btn" href="principal_sucursales.html">Volver</a>
+                            <a id="borrar" class="btn" onclick="borrar_sucursal()">Borrar</a>
                         </div>
                     </div>
                 </div>
@@ -80,6 +81,29 @@
             .then(response_received)
             .then(parse_data)
             .catch(handle_error)
+
+            function delete_response(data) {
+            if (data.message) {
+                alert("La sucursal ha sido borrada exitosamente.")
+                window.location.href = "principal_sucursales.html";
+            } else {
+                alert("Surgio un error. Intente nuevamente.")
+            }
+        }
+        
+        function borrar_sucursal() {
+            const confirmar = confirm(`Seguro quieres eliminar la sucursal ${id}?`)
+            if (!confirmar) {
+                return;
+            }
+            fetch(
+                `http://localhost:5000/sucursales/${id}`,
+                { method: "DELETE" }
+            )
+                .then((res) => res.json())
+                .then(delete_response)
+                .catch(handle_error)
+        }
     </script>
 </body>
 

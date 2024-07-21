@@ -11,13 +11,13 @@
 </head>
 
 <body data-bs-theme="dark">
-    <h1>Concesionaria FNS
+    <a href="principal_autos.html"><h1>Concesionaria FNS
     <nav id = "navegador">
         <a href = "/frontend/vendedores/principal_vendedores.html" id = "elemento"> Vendedores</a>
         <a href = "/frontend/sucursales/principal_sucursales.html" id = "elemento"> Sucursales</a>
         <a href = "/frontend/consultas/consultas.html" id = "elemento"> Consultas</a>
     </nav>
-    </h1>
+    </h1></a>
     <br>
     <div class="container" id="container">
         <div class="row">
@@ -26,9 +26,8 @@
     <div class="container">
         <div class="row g-4" id="auto">
         </div>
-        <br>
         <a href="crear_auto.html" class="btn" id = "boton">Agregar auto</a>
-        <br>
+        <footer></footer>
     </div>
 
 
@@ -57,7 +56,7 @@
                 const card_body = document.createElement("div");
                 card_body.setAttribute("class", "card-body");
 
-                card_body.append(content.autos[index].marca + " " + " " + content.autos[index].modelo + " " + "(" + content.autos[index].anio + ")");
+                card_body.append(`${content.autos[index].marca} ${content.autos[index].modelo} (${content.autos[index].anio})`);
                 card.append(image);
                 card.append(card_body);
                 item.append(card);

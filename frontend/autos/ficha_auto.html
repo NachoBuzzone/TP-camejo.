@@ -10,7 +10,7 @@
     <link href = "autos.css" rel = "stylesheet">
     <style>
         img {
-            background-color: dimgray;
+            background-color: rgb(192, 48, 48);
             aspect-ratio: 4/3;
         }
     </style>
@@ -19,7 +19,7 @@
 <body data-bs-theme="dark">
     <div class="container my-4">
         <div class="row">
-            <div class="col-12 col-md-10 mx-auto">
+            <div class="col-10 col-md-10 mx-auto">
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
@@ -28,14 +28,17 @@
                             </div>
                             <div class="col-6" id = "datos">
                                 <h3 id="autos", id ="model"></h3>
+                                <h3 id="color"></h3>
                                 <h3 id = "anio"></h3>
                                 <h3 id="kilometraje"></h3>      
                                 <h3 id = "model"></h3>
+                                <h3 id="motor"></h3>
                                 </ul>
                                 <div class = "botones">
                                 <a id ="borrar" class="btn" onclick="borrar_auto()">Borrar</a>
                                 <a id="editar" class="btn" href="editar_auto.html">Editar</a>
                                 <a id="volver" class="btn" href="principal_autos.html">Volver</a>
+                                <a id="consultar" class="btn" href="/frontend/consultas/consultas.html">Consultar</a>
                                 </div>
                             </div>
                         </div>
@@ -65,11 +68,15 @@
 
         function parse_data(auto) {
             const name = document.getElementById("autos");
-            name.innerText = `Modelo: ${auto.marca} ${auto.modelo}`
+            name.innerText = `Modelo: ${auto.marca} ${auto.modelo}.`
             const kilometraje = document.getElementById("kilometraje");
-            kilometraje.innerText =`Kilometros: ${auto.kilometraje}`;
+            kilometraje.innerText =`Kilometros: ${auto.kilometraje}.`;
+            const color = document.getElementById ("color")
+            color.innerText = `Color: ${auto.color}.`
             const anio = document.getElementById ("anio");
-            anio.innerText =`Año: ${auto.anio}`;
+            anio.innerText =`Año: ${auto.anio}.`;
+            const motor = document.getElementById ("motor")
+            motor.innerText =`Motor: ${auto.motor}`;
             const imagen = document.getElementById("image");
             imagen.setAttribute("src", auto.imagen);
         }
