@@ -51,6 +51,11 @@
                                     required>
                             </div>
                             <div class="mb-3">
+                                <label for="motor" class="form-label">Motor</label>
+                                <input type="text" class="form-control" name="motor" id="motor" 
+                                    required>
+                            </div>
+                            <div class="mb-3">
                                 <label for="imagen" class="form-label">Imagen</label>
                                 <input type="text" class="form-control" name="imagen" id="imagen" required>
                             </div>
@@ -81,6 +86,7 @@
                 document.getElementById("modelo").value = data.modelo
                 document.getElementById("color").value = data.color
                 document.getElementById("imagen").value = data.imagen
+                document.getElementById("motor").value = data.motor
             }
             
             fetch(`http://localhost:5000/autos/${id}`)
@@ -107,6 +113,7 @@
                 const modelo = formData.get("modelo")
                 const color = formData.get("color")
                 const imagen = formData.get("imagen")
+                const motor = formData.get ("motor")
     
                 fetch(`http://localhost:5000/autos/${id}`, {
                     method: "PUT",
@@ -120,6 +127,7 @@
                         marca: marca,
                         color: color,
                         imagen: imagen,
+                        motor: motor,
                     })
                 })
                     .then((res) => res.json())

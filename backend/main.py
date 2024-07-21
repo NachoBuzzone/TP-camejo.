@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify, redirect, url_for, render_template
 from models import db,Autos,Sucursales,Vendedores,Consultas,Login
 from flask_cors import CORS
+import random
 
 app = Flask(__name__)
 CORS (app)
@@ -23,9 +24,11 @@ def get_autos():
                 'modelo': auto.modelo,
                 'marca': auto.marca,
                 'color': auto.color,
-                'imagen': auto.imagen
+                'imagen': auto.imagen,
+                'motor': auto.motor,
             }
             autos_data.append (auto_data)
+            Autos.query.order_by(Autos.id).all()
         return jsonify({'autos': autos_data})
     except Exception as error:
         print('Error', error)
@@ -42,7 +45,8 @@ def info_autos(id_autos):
             'modelo': auto.modelo,
             'marca': auto.marca,
             'color': auto.color,
-            'imagen': auto.imagen
+            'imagen': auto.imagen,
+            'motor': auto.motor,
         }
         return jsonify (auto_data)
     except:
@@ -60,7 +64,8 @@ def anadir_auto():
         marca = data.get('marca')
         color = data.get ('color')
         imagen = data.get ('imagen')
-        auto_nuevo = Autos(id = id, kilometraje=kilometraje,anio=anio,modelo=modelo,marca=marca,color=color, imagen=imagen)
+        motor = data.get ('motor')
+        auto_nuevo = Autos(id = id, kilometraje=kilometraje,anio=anio,modelo=modelo,marca=marca,color=color, imagen=imagen, motor=motor)
         db.session.add(auto_nuevo)
         db.session.commit()
         return jsonify({
@@ -71,7 +76,8 @@ def anadir_auto():
                 'modelo': auto_nuevo.modelo,
                 'marca': auto_nuevo.marca,
                 'color': auto_nuevo.color,
-                'imagen': auto_nuevo.imagen
+                'imagen': auto_nuevo.imagen,
+                'motor': auto_nuevo.motor
             }
         }), 201
     except Exception as error:
@@ -97,8 +103,11 @@ def editar_auto(id_autos):
         auto_editado.marca = data.get('marca')
         auto_editado.color = data.get('color')
         auto_editado.imagen = data.get('imagen')
-            
+        auto_editado.motor = data.get ('motor')
+
         db.session.commit()
+
+        Autos.query.order_by(Autos.id).all ()
             
         actualizar_auto = {
             'id': auto_editado.id,
@@ -107,7 +116,8 @@ def editar_auto(id_autos):
             'modelo': auto_editado.modelo,
             'marca': auto_editado.marca,
             'color': auto_editado.color,
-            'imagen': auto_editado.imagen
+            'imagen': auto_editado.imagen,
+            'motor': auto_editado.motor
         }
             
         return jsonify({'Autos': actualizar_auto}), 200
@@ -206,6 +216,20 @@ def editar_sucursal(id_sucursales):
     except Exception as error:
         print('Error', error)
         return jsonify({'message': 'Internal server error'}), 500
+
+
+@app.route ('/sucursales/<id_sucursales>', methods = ["DELETE"])
+def eliminar_sucursal(id_sucursales):
+    sucursales = Sucursales.query.get (id_sucursales)
+    vendedores = Vendedores.query.filter(Vendedores.id_sucursal == id_sucursales).all ()
+    sucursales_restantes = Sucursales.query.filter(Sucursales.id!= id_sucursales).all ()
+    for vendedor in vendedores:
+        reasignar_sucursal = random.choice (sucursales_restantes)
+        vendedor.id_sucursal = reasignar_sucursal.id
+    db.session.commit ()
+    db.session.delete (sucursales)
+    db.session.commit ()
+    return ({'message' : 'Sucursal borrada exitosamente.'}), 200
 
         
 @app.route('/vendedores', methods=['GET'])
@@ -335,6 +359,25 @@ def anadir_consulta():
     except Exception as error:
         print('Error', error)
         return jsonify({'message': 'Internal server error'}), 500
+
+
+@app.route('/consultas', methods=['GET'])
+def get_info_consultas():
+    try:
+        consultas = Consultas.query.all()
+        consultas_datos = []
+        for consulta in consultas:
+            info_consultas = {
+                'id': consulta.id,
+                'mail': consulta.mail,
+                'tipo_consulta': consulta.tipo_consulta,
+                'mensaje': consulta.mensaje
+            }
+            consultas_datos.append (info_consultas)
+        return jsonify({'consultas': consultas_datos})
+    except Exception as error:
+        print('Error', error)
+        return jsonify({'message': 'Internal server error'}), 500
  
 
 @app.route('/login', methods=['POST'])
@@ -346,7 +389,7 @@ def iniciar_sesion():
         apellido = data.get ('apellido')
         mail = data.get('mail')
         contrasena = data.get('contrasena')
-        usuario = Login(id = id, nombre=nombre, apellido=apellido, mail=mail, contrasenia=contrasena)
+        usuario = Login(id = id, nombre=nombre, apellido=apellido, mail=mail, contrasena=contrasena)
         db.session.add(usuario)
         db.session.commit()
         return jsonify({
@@ -358,6 +401,25 @@ def iniciar_sesion():
                 'contrasena': usuario.contrasena
             }
         }), 201
+    except Exception as error:
+        print('Error', error)
+        return jsonify({'message': 'Internal server error'}), 500
+
+@app.route('/login', methods=['GET'])
+def get_info_login():
+    try:
+        informacion = Login.query.all()
+        info_data = []
+        for info in informacion:
+            info_usuario_data = {
+                'id': info.id,
+                'nombre': info.nombre,
+                'apellido': info.apellido,
+                'mail': info.mail,
+                'contrasena': info.contrasena
+            }
+            info_data.append (info_usuario_data)
+        return jsonify({'informacion': info_data})
     except Exception as error:
         print('Error', error)
         return jsonify({'message': 'Internal server error'}), 500

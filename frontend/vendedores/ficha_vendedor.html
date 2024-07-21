@@ -28,16 +28,15 @@
                             </div>
                             <div class="col-6" id="datos">
                                 <h3 id="nombre", id = "apellido"></h3>
-                                <br>
                                 <h3 id="edad"></h3>
-                                <br>
                                 <h3 id="direccion"></h3>
-                                <br>
                                 <h3 id="mail"></h3>
-                                <br>
                                 </ul>
-                                <button class="btn btn-danger" onclick="borrar_vendedor()">Borrar</button>
-                                <a id="editar" class="btn btn-warning" href="editar_vendedor.html">Editar</a>
+                                <div class = "botones">
+                                <a id="borrar" class="btn" onclick="borrar_vendedor()">Borrar</a>
+                                <a id="editar" class="btn" href="editar_vendedor.html">Editar</a>
+                                <a id="volver" class="btn" href="principal_vendedores.html">Volver</a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -65,13 +64,11 @@
 
         function parse_data(vendedor) {
             const nombre = document.getElementById("nombre");
-            nombre.innerText = "Nombre:" + " " + vendedor.nombre + " " + vendedor.apellido;
-            const edad = document.getElementById ("edad");
-            edad.innerText = "Edad: " + " " + vendedor.edad;
+            nombre.innerText = `Nombre: ${vendedor.nombre} ${vendedor.apellido}.`;
             const direccion = document.getElementById ("direccion");
-            direccion.innerText = "Trabaja en sucursal:" + " " + vendedor.id_sucursal;
+            direccion.innerText = `Trabaja en sucursal: ${vendedor.id_sucursal}.`;
             const mail = document.getElementById ("mail");
-            mail.innerText = "Mail de contacto:" + " " + vendedor.mail
+            mail.innerText = `Mail de contacto: ${vendedor.mail}.`
             const imagen = document.getElementById("image");
             imagen.setAttribute("src", vendedor.link_imagen);
         }

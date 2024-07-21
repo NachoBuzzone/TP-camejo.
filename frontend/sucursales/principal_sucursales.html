@@ -11,13 +11,13 @@
 </head>
 
 <body data-bs-theme="dark">
-    <h1>Concesionaria FNS
+    <a href="/frontend/autos/principal_autos.html"><h1>Concesionaria FNS
         <nav id = "navegador">
             <a href = "/frontend/vendedores/principal_vendedores.html" id = "elemento"> Vendedores</a>
             <a href = "/frontend/autos/principal_autos.html" id = "elemento"> Autos</a>
             <a href = "/frontend/consultas/consultas.html" id = "elemento"> Consultas</a>
         </nav>
-    </h1>
+    </h1></a>
     <br>
     <div class="container" id="container">
         <div class="row">
@@ -44,7 +44,7 @@
             const container = document.getElementById("sucursal");
             for (let index = 0; index < content.sucursales.length; index++) {
                 const item = document.createElement("p");
-                item.setAttribute("class", "col-3 col-md-6 col-lg-2 col-xl-3");
+                item.setAttribute("class", "col-6 col-md-6 col-lg-2 col-xl-3");
 
                 const card = document.createElement("a");
                 card.setAttribute("class", "card text-decoration-none");

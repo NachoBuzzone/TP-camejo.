@@ -4,8 +4,22 @@ h1 {
     font-family: 'Times New Roman', Times, serif;
 }
 
+
+h3 {
+    margin-top: 15px;
+}
+
+#mail {
+    margin-top: 45px;
+}
+
+#direccion {
+    margin-top: 50px;
+}
+
 nav #elemento {
     text-align: center;
+    font-family: 'Times New Roman', Times, serif;
     list-style: none;
     background-color: rgb(71, 61, 61);
     justify-content: space-between;
@@ -19,23 +33,62 @@ nav #elemento {
 
 a {
     color: white;
+    text-decoration: none;
+}
+
+
+.card-body{
+    background-color: rgb(10, 10, 10); 
+    border-radius: 6px;   
+    font-size: small;
+    color: rgb(252, 251, 251);
+}
+
+.botones {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
 }
 
 #boton {
     background-color: mediumseagreen;
     cursor: pointer;
     transition: all ease 0.5s;
-}
-
-.btn:hover {
-    background-color: transparent;
-    color: mediumseagreen;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 #datos {
-    font-family: 'Times New Roman', Times, serif; 
+    font-family: 'Times New Roman', Times, serif;
+    position: relative; 
+    top: 10px;
 }
 
 #container {
     font-family: 'Times New Roman', Times, serif;
+    position: relative;
+    min-height: 300px;
+    text-align: center;
+}
+
+#editar{
+    background-color: mediumaquamarine;
+    transition: all ease 0.5s;
+    border:mediumaquamarine solid 1px;
+
+}
+
+#volver {
+    background-color: gray;
+    transition: all ease 0.5s;
+    border:gray solid 1px;
+}
+
+#borrar {
+    background-color: rgb(128, 4, 4);
+    transition: all ease 0.5s;
+    border:rgb(128, 4, 4) solid 1px;
+}
+
+#borrar:hover, #volver:hover, #editar:hover {
+    background-color: transparent;
 }

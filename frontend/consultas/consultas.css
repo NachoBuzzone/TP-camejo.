@@ -23,6 +23,30 @@ nav #elemento {
 
 a {
     color: white;
+    text-decoration: none;
+}
+
+#mail {
+    border-radius: 6px;
+    border: 1px solid;
+    margin-bottom: 20px;
+}
+
+.card-body {
+    background-color: black;
+    border-radius: 6px;
+    border: 2px solid;
+}
+
+#tipo_consulta{
+    text-align: center;
+    background-color: rgb(11, 11, 11);
+    font-weight: bolder;
+}
+
+
+.form-check-label {
+    width:27%;
 }
 
 #formulario{
@@ -30,10 +54,12 @@ a {
 }
 
 #mensaje {
-    border-radius: 1px;
+    border-radius: 6px;
     border: 1px solid;
-    padding:1em;
-    width:100%;
+    bottom: 10px;
+    width: 510px;
+    height: 50px;
+    padding: 0 15px;
 }
 
 #tipo_consulta{
