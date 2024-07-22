@@ -84,6 +84,12 @@ a {
     border:rgb(128, 4, 4) solid 1px;
 }
 
-#borrar:hover, #volver:hover, #editar:hover, #consultar:hover {
+#agregar {
+    background-color: mediumaquamarine;
+    transition: all ease 0.5s;
+    border:mediumaquamarine solid 1px; 
+}
+
+#borrar:hover, #volver:hover, #editar:hover, #consultar:hover,#agregar:hover {
     background-color: transparent;
 }

@@ -28,7 +28,6 @@ def get_autos():
                 'motor': auto.motor,
             }
             autos_data.append (auto_data)
-            Autos.query.order_by(Autos.id).all()
         return jsonify({'autos': autos_data})
     except Exception as error:
         print('Error', error)
@@ -106,9 +105,6 @@ def editar_auto(id_autos):
         auto_editado.motor = data.get ('motor')
 
         db.session.commit()
-
-        Autos.query.order_by(Autos.id).all ()
-            
         actualizar_auto = {
             'id': auto_editado.id,
             'kilometraje': auto_editado.kilometraje,
@@ -361,24 +357,6 @@ def anadir_consulta():
         return jsonify({'message': 'Internal server error'}), 500
 
 
-@app.route('/consultas', methods=['GET'])
-def get_info_consultas():
-    try:
-        consultas = Consultas.query.all()
-        consultas_datos = []
-        for consulta in consultas:
-            info_consultas = {
-                'id': consulta.id,
-                'mail': consulta.mail,
-                'tipo_consulta': consulta.tipo_consulta,
-                'mensaje': consulta.mensaje
-            }
-            consultas_datos.append (info_consultas)
-        return jsonify({'consultas': consultas_datos})
-    except Exception as error:
-        print('Error', error)
-        return jsonify({'message': 'Internal server error'}), 500
- 
 
 @app.route('/login', methods=['POST'])
 def iniciar_sesion():
@@ -405,24 +383,7 @@ def iniciar_sesion():
         print('Error', error)
         return jsonify({'message': 'Internal server error'}), 500
 
-@app.route('/login', methods=['GET'])
-def get_info_login():
-    try:
-        informacion = Login.query.all()
-        info_data = []
-        for info in informacion:
-            info_usuario_data = {
-                'id': info.id,
-                'nombre': info.nombre,
-                'apellido': info.apellido,
-                'mail': info.mail,
-                'contrasena': info.contrasena
-            }
-            info_data.append (info_usuario_data)
-        return jsonify({'informacion': info_data})
-    except Exception as error:
-        print('Error', error)
-        return jsonify({'message': 'Internal server error'}), 500
+
 
 if __name__ == '__main__':
     with app.app_context():
