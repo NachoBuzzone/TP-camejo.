@@ -30,7 +30,7 @@
                                 <h3 id="nombre", id = "apellido"></h3>
                                 <h3 id="edad"></h3>
                                 <h3 id="direccion"></h3>
-                                <h3 id="mail"></h3>
+                                <h3 id="email"></h3>
                                 </ul>
                                 <div class = "botones">
                                 <a id="borrar" class="btn" onclick="borrar_vendedor()">Borrar</a>
@@ -67,7 +67,7 @@
             nombre.innerText = `Nombre: ${vendedor.nombre} ${vendedor.apellido}.`;
             const direccion = document.getElementById ("direccion");
             direccion.innerText = `Trabaja en sucursal: ${vendedor.id_sucursal}.`;
-            const mail = document.getElementById ("mail");
+            const mail = document.getElementById ("email");
             mail.innerText = `Mail de contacto: ${vendedor.mail}.`
             const imagen = document.getElementById("image");
             imagen.setAttribute("src", vendedor.link_imagen);

@@ -27,13 +27,11 @@
                                 <img src="" alt="" id="image" class="w-100">
                             </div>
                             <div class="col-6" id = "datos">
-                                <h3 id="autos", id ="model"></h3>
+                                <h3 id="auto"></h3>
                                 <h3 id="color"></h3>
                                 <h3 id = "anio"></h3>
                                 <h3 id="kilometraje"></h3>      
-                                <h3 id = "model"></h3>
                                 <h3 id="motor"></h3>
-                                </ul>
                                 <div class = "botones">
                                 <a id ="borrar" class="btn" onclick="borrar_auto()">Borrar</a>
                                 <a id="editar" class="btn" href="editar_auto.html">Editar</a>
@@ -67,7 +65,7 @@
         }
 
         function parse_data(auto) {
-            const name = document.getElementById("autos");
+            const name = document.getElementById("auto");
             name.innerText = `Modelo: ${auto.marca} ${auto.modelo}.`
             const kilometraje = document.getElementById("kilometraje");
             kilometraje.innerText =`Kilometros: ${auto.kilometraje}.`;
